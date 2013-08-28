@@ -74,7 +74,7 @@ module Crichton
       def href
         unless descriptor_document['href'].nil?
           orig_link = descriptor_document['href']
-          if orig_link.starts_with?('http')
+          if (['Array'].include? orig_link) || orig_link.starts_with?('http')
             return orig_link
           else
             base_uri = descriptor_document['rel'] == 'help' ? config.documentation_base_uri : config.alps_base_uri

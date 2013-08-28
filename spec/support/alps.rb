@@ -7,16 +7,16 @@ module Support
             'value' => 'Describes Leviathans.'
           },
           'ext' => [
-            {'href' => 'alps_base/Leviathans#leviathan/alt', 'value' => 'Alternate.'}
+            {'href' => 'Leviathans#leviathan/alt', 'value' => 'Alternate.'}
           ],
           'link' => [
             {
               'rel' => 'self', 
-              'href' => 'alps_base/Leviathans'
+              'href' => 'Leviathans'
             }, 
             {
               'rel' => 'help', 
-              'href' => 'documentation_base/Things/Leviathans'
+              'href' => 'Things/Leviathans'
             }
           ], 
           'descriptor' => [
@@ -28,7 +28,7 @@ module Support
               },
               'ext' => [
                 {
-                  'href' => 'alps_base/Leviathans#leviathan/note', 
+                  'href' => 'Leviathans#leviathan/note',
                   'value' => 'A note.'
                 }
               ],
@@ -63,11 +63,11 @@ module Support
                       'link' => [
                         {
                           'rel' => 'self',
-                          'href' => 'alps_base/Leviathans#leviatahn/create/create-leviathan'
+                          'href' => 'Leviathans#leviatahn/create/create-leviathan'
                         },
                         {
                           'rel' => 'help',
-                          'href' => 'documentation_base/Forms/create-leviathan'
+                          'href' => 'Forms/create-leviathan'
                         }
                       ],
                       'type' => 'semantic',

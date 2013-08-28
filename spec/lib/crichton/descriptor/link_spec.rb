@@ -8,7 +8,7 @@ module Crichton
       
       describe '#attributes' do
         it 'returns the attributes of the link' do
-          link.attributes.should == {rel: 'rel', href: 'link_url'}
+          link.attributes.should == {rel: 'rel', href: 'http://alps.example.com/link_url'}
         end
       end
       
@@ -20,7 +20,7 @@ module Crichton
 
       describe '#url' do
         it 'returns the link url' do
-          link.url.should == 'link_url'
+          link.url.should == 'http://alps.example.com/link_url'
         end
       end
     end

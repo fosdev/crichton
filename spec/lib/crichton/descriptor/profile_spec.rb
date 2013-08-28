@@ -41,7 +41,7 @@ module Crichton
       describe '#help_link' do
         it 'returns the help link in the descriptor' do
           descriptors['drds']['links'] = {'help' => 'help_link'}
-          descriptor.help_link.href.should == 'help_link'
+          descriptor.help_link.href.should == 'http://docs.example.org/help_link'
         end
         
         it 'returns the resource descriptor help link if no help link in descriptor' do

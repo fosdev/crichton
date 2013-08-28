@@ -28,7 +28,7 @@ module Crichton
       describe '#href' do
         it 'returns the href in the descriptor document' do
           descriptor_document['href'] = 'some_href'
-          descriptor.href.should == descriptor_document['href']
+          descriptor.href.should == "#{Crichton::config.alps_base_uri}/#{descriptor_document['href']}"
         end
       end
 
