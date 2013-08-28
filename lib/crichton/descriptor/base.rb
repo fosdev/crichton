@@ -64,8 +64,24 @@ module Crichton
       # @!macro string_reader
       descriptor_reader :id
 
-      # @!macro string_reader
-      descriptor_reader :href
+      ##
+      # Return full links instead of internal/relative links
+      #
+      # If the link is missing a http then assume it is a relative link. For help links, use the documentation_base,
+      # for all other links use the alps_base URI from the configuration.
+      #
+      # @return [String] link
+      def href
+        unless descriptor_document['href'].nil?
+          orig_link = descriptor_document['href']
+          if orig_link.starts_with?('http')
+            return orig_link
+          else
+            base_uri = descriptor_document['rel'] == 'help' ? config.documentation_base_uri : config.alps_base_uri
+            return "#{base_uri}/#{orig_link}"
+          end
+        end
+      end
 
       ##
       # Accesses the child descriptor document hash so inheriting classes that implement parents set
