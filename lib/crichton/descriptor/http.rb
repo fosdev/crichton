@@ -33,20 +33,20 @@ module Crichton
       # @param [Object] target The target.
       #
       # @return [String] The fully-qualified url for the descriptor based on the target attributes.
-      def url_for(target)
+      def url_for(target, options = {})
         if uri
-          generate_populated_url(target)
+          generate_populated_url(target, options)
         elsif target.respond_to?(uri_source)
           target.send(uri_source)
         else
           logger.warn "Crichton::Descriptor::Http.url_for doesn't have URL configured (#{target.inspect})" <<
               "Please ensure that your descriptor either has an uri attribute."
         end
-      end 
-      
+      end
+
     private
-      def generate_populated_url(target)
-        template = Addressable::Template.new(File.join(config.deployment_base_uri, uri))
+      def generate_populated_url(target, options)
+        template = Addressable::Template.new(File.join(options[:base_url] || config.deployment_base_uri, uri))
         template.expand(mapped_template_variables(target, template)).to_s
       end
       

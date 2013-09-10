@@ -132,31 +132,32 @@ module Crichton
 
         def add_transitions(options)
           @object.each_link_transition(options) do |transition|
-            transition.templated? ? add_templated_transition(transition, options) : add_transition(transition)
+            transition.templated? ? add_templated_transition(transition, options) : add_transition(transition, options)
           end
 
-          @object.each_embedded_transition(options) { |transition| add_transition(transition) }
+          @object.each_embedded_transition(options) { |transition| add_transition(transition, options) }
         end
 
         def add_templated_transition(transition, options)
           if transition.safe?
-            add_query_transition(transition)
+            add_query_transition(transition, options)
           else
-            add_control_transition(transition)
+            add_control_transition(transition, nil, options)
           end
         end
 
-        def add_query_transition(transition)
-          @markup_builder.a(transition.name, {rel: transition.name, href: transition.templated_url}) if transition.url
+        def add_query_transition(transition, options)
+          @markup_builder.a(transition.name,
+            {rel: transition.name, href: transition.templated_url(options)}) if transition.url(options)
         end
 
-        def add_control_transition(transition)
+        def add_control_transition(transition, input_type=nil, options={})
           raise_abstract('add_control_transition')
         end
 
-        def add_transition(transition)
+        def add_transition(transition, options)
           logger.warn("URL is nil for transition #{transition.name}!") if transition.url.blank?
-          @markup_builder.a(transition.name, {rel: transition.name, href: transition.url}) if transition.url
+          @markup_builder.a(transition.name, {rel: transition.name, href: transition.url(options)}) if transition.url
         end
 
         def add_semantics(options)
@@ -257,8 +258,8 @@ module Crichton
           end
         end
 
-        def add_transition(transition)
-          return unless transition.url
+        def add_transition(transition, options)
+          return unless transition.url(options)
           
           @markup_builder.li do
             super
@@ -283,15 +284,15 @@ module Crichton
           end
         end
 
-        def add_query_transition(transition)
-          add_control_transition(transition, :search)
+        def add_query_transition(transition, options)
+          add_control_transition(transition, :search, options)
         end
         
         # Builds a form control
-        def add_control_transition(transition, input_type = :text)
+        def add_control_transition(transition, input_type = :text, options = {})
           method = transition.safe? ? transition.method : :post
           @markup_builder.li do
-            @markup_builder.form({action: transition.url, method: method}) do
+            @markup_builder.form({action: transition.url(options), method: method}) do
               @markup_builder.ul do
                 transition.semantics.values.each do |semantic|
                   if semantic.semantics.any?

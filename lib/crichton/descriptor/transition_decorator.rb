@@ -80,9 +80,10 @@ module Crichton
       
       ##
       # The fully-qualified URL for the transition.
-      def url
+      def url(options = {})
+        options[:targetname] = self.name
         @url ||= if protocol_descriptor
-          protocol_descriptor.url_for(@target)
+          protocol_descriptor.url_for(@target, options)
         else
           logger.warn("The URL for the transition is not defined for #{@target.inspect}!")
           nil
