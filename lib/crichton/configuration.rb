@@ -64,6 +64,10 @@ module Crichton
       @js_uri ||= (js = *@config['js_uri'])
     end
 
+    def crichton_slt_response_header
+      @crichton_slt_response_header ||= @config['crichton_slt_response_header'] || 'SLT'
+    end
+
     ##
     # @param [Hash] config The configuration hash.
     # @option config [String] alps_base_uri

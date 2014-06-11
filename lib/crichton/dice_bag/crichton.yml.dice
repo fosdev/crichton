@@ -6,6 +6,7 @@ common: &common
   crichton_proxy_base_uri: <%= configured.crichton_proxy_base_uri || 'http://localhost:3000/crichton' %>
   alps_profile_response_expiry: <%= configured.alps_profile_response_expiry || 20 %>
   resource_home_response_expiry: <%= configured.resource_home_response_expiry || 20 %>
+  crichton_slt_response_header: <%= configured.crichton_slt_response_header || 'SLT' %>
   css_uri: <%= configured.css_uri %>
   js_uri: <%= configured.js_uri %>
 production: *common

@@ -103,7 +103,12 @@ module Crichton
       end
 
       def response_headers
-        @response_headers ||= state_descriptor.decorate(@target).to_hash
+        @response_headers ||= {}.tap do |headers|
+          if protocol_descriptor.slt.present?
+            headers.merge!({ config.crichton_slt_response_header => protocol_descriptor.slt.to_s })
+          end
+          headers.merge!(state_descriptor.decorate(@target).to_hash)
+        end
       end
 
     private
